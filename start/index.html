@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fledgy: adventures off the screen</title>
+<meta name="description" content="Fledgy is coming soon. Your child grows Pip, a little bird, by doing real things away from screens. Get early access and a free printable adventure pack.">
+<meta property="og:title" content="Meet Pip. Fledgy is coming soon.">
+<meta property="og:description" content="Kids grow a little bird by building nests, spotting real birds and helping at home. Get early access and a free printable adventure pack.">
+<meta property="og:image" content="https://jakewatts-eng.github.io/fledgy-site/start/share.png">
+<meta property="og:url" content="https://jakewatts-eng.github.io/fledgy-site/start/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 12C76 12 86 46 86 66C86 86 72 94 50 94C28 94 14 86 14 66C14 46 24 12 50 12Z' fill='%23A8D6F6'/%3E%3Ccircle cx='38' cy='48' r='8' fill='%23fff'/%3E%3Ccircle cx='62' cy='48' r='8' fill='%23fff'/%3E%3Ccircle cx='38' cy='49' r='5' fill='%232B2F2D'/%3E%3Ccircle cx='62' cy='49' r='5' fill='%232B2F2D'/%3E%3Cpath d='M43 58Q50 54 57 58Q55 65 50 65Q45 65 43 58Z' fill='%23E2B23A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #DCEFFB; --hill-far: #CDE9DB; --hill-near: #A9D9C1;
+    --leaf: #2F6B4D; --leaf-dark: #255a40; --leaf-bright: #4CAF7D; --sun: #FFD84D; --sun-soft: #FFF4CD;
+    --ink: #242926; --muted: #56635C; --line: #E1E6E3; --paper: #FFFFFF; --soft: #F4F8F6; --err: #A3262A;
+    --round: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 500 17px/1.6 var(--round); }
+  a { color: var(--leaf); text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--leaf-bright); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.15; font-weight: 900; margin-bottom: 14px; }
+  h3 { font-size: 19px; line-height: 1.3; font-weight: 800; margin-bottom: 4px; }
+  p { margin: 0 0 14px; max-width: 62ch; }
+  section.wrap { padding-top: 64px; }
+  .soon { display: inline-block; background: var(--paper); color: var(--leaf); font-weight: 800; font-size: 14px; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
+
+  /* Hero */
+  .scene { background: var(--sky); position: relative; overflow: hidden; }
+  .scene .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; align-items: end; padding-top: 44px; position: relative; z-index: 2; }
+  .scene h1 { font-size: clamp(34px, 5.6vw, 54px); line-height: 1.05; font-weight: 900; margin-bottom: 14px; max-width: 15ch; }
+  .lede { font-size: 19px; line-height: 1.5; max-width: 38ch; margin-bottom: 20px; }
+  .join { display: flex; gap: 8px; max-width: 460px; flex-wrap: wrap; }
+  .join input { flex: 1 1 220px; }
+  .hero-text { padding-bottom: 104px; }
+  .get { color: var(--muted); font-size: 15px; margin: 10px 0 0; max-width: 46ch; }
+  .birds { display: flex; justify-content: center; align-items: flex-end; gap: 4px; margin-bottom: 40px; }
+  .birds svg { width: min(200px, 42vw); height: auto; }
+  .hills { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 140px; z-index: 1; }
+
+  input[type=email], textarea { font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 14px; border: 2px solid var(--line); background: #fff; color: var(--ink); min-height: 52px; }
+  input[type=email]:focus, textarea:focus { border-color: var(--leaf-bright); outline: none; }
+  textarea { width: 100%; min-height: 90px; resize: vertical; }
+  button, .btn { font: inherit; font-weight: 900; font-size: 18px; background: var(--leaf); color: #fff; border: 0; border-radius: 14px; padding: 12px 24px; min-height: 52px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  button:hover, .btn:hover { background: var(--leaf-dark); }
+  button[disabled] { opacity: .6; cursor: wait; }
+  .btn.sun { background: var(--sun); color: var(--ink); } .btn.sun:hover { background: #F5CB2E; }
+  .btn.wa { background: #1F8A4C; } .btn.wa:hover { background: #18723E; }
+  .err { color: var(--err); font-weight: 700; font-size: 15px; margin-top: 8px; min-height: 0; }
+  .err:empty { display: none; }
+
+  /* Joined panel (replaces the form after sign-up) */
+  .joined { display: none; background: #fff; border-radius: 22px; padding: 22px; max-width: 480px; }
+  .joined.show { display: block; }
+  .joined h2 { font-size: 26px; margin-bottom: 6px; }
+  .joined .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  /* How it works */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: s; }
+  .steps li { counter-increment: s; background: var(--soft); border-radius: 22px; padding: 22px; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--sun); font-weight: 900; margin-bottom: 10px; }
+  .steps p { color: var(--muted); margin: 0; }
+
+  /* Adventure cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+  .card { border-radius: 22px; padding: 22px; border: 3px solid; min-height: 160px; }
+  .card .kind { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+  .card h3 { font-size: 22px; margin: 6px 0 8px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card.make { border-color: #E8B04A; background: #FFF8E6; } .card.make .kind { color: #8A5A00; }
+  .card.explore { border-color: var(--leaf-bright); background: #EEF8F2; } .card.explore .kind { color: var(--leaf); }
+  .card.help { border-color: #E27FA8; background: #FDF0F5; } .card.help .kind { color: #9C2E5C; }
+
+  /* Passport */
+  .passport { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
+  .stamps { background: var(--sun-soft); border-radius: 22px; padding: 22px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .stamp { aspect-ratio: 1; border-radius: 50%; border: 2px dashed #D9B84A; display: grid; place-items: center; }
+  .stamp.done { border: 0; background: var(--leaf-bright); color: #fff; font-weight: 900; }
+
+  /* Promises */
+  .promises { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 36px; }
+  .promises li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .promises strong { font-weight: 800; }
+
+  /* Survey */
+  .survey { background: var(--soft); margin-top: 64px; padding: 56px 0 64px; }
+  form.q { max-width: 680px; }
+  fieldset { border: 0; padding: 0; margin: 0 0 26px; }
+  legend { font-weight: 800; font-size: 18px; margin-bottom: 10px; padding: 0; }
+  legend small { display: block; font-weight: 600; color: var(--muted); font-size: 14px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { position: relative; }
+  .opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .opt span { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px; border-radius: 999px; background: #fff; border: 2px solid var(--line); font-weight: 700; font-size: 16px; cursor: pointer; }
+  .opt input:checked + span { border-color: var(--leaf); background: #E5F4EC; color: var(--leaf); }
+  .opt input:focus-visible + span { outline: 3px solid var(--leaf-bright); outline-offset: 2px; }
+  label.field { display: block; font-weight: 800; font-size: 18px; margin-bottom: 8px; }
+  .fine { color: var(--muted); font-size: 14px; margin-top: 12px; }
+  .thanks { display: none; background: #fff; border-radius: 22px; padding: 28px; max-width: 680px; }
+  .thanks.show { display: block; }
+
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 760px) {
+    .scene .wrap { grid-template-columns: 1fr; padding-top: 28px; }
+    .hero-text { padding-bottom: 0; }
+    .birds { margin-bottom: 64px; }
+    .birds svg { width: min(150px, 40vw); }
+    .steps, .cards, .promises, .passport { grid-template-columns: 1fr; }
+    .join button { width: 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .birds svg { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+    .birds svg:nth-child(2) { animation-delay: -1.6s; }
+    @keyframes bob { 50% { transform: translateY(-6px); } }
+  }
+</style>
+</head>
+<body id="top">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="pip-boy" viewBox="0 0 200 220">
+      <ellipse cx="100" cy="207" rx="56" ry="8" fill="#2F6B4D" opacity=".16"/>
+      <path d="M40 118 C24 128 20 160 28 182 C40 174 48 150 46 124Z" fill="#7DB9E6"/>
+      <path d="M160 118 C176 128 180 160 172 182 C160 174 152 150 154 124Z" fill="#7DB9E6"/>
+      <rect x="70" y="190" width="26" height="15" rx="7" fill="#D9B13A"/>
+      <rect x="104" y="190" width="26" height="15" rx="7" fill="#D9B13A"/>
+      <path d="M97 46 C90 32 94 18 102 14 C108 22 107 36 103 46Z" fill="#9ACFF3"/>
+      <path d="M100 40 C150 40 168 106 167 148 C166 188 138 199 100 199 C62 199 34 188 33 148 C32 106 50 40 100 40Z" fill="#A8D6F6"/>
+      <ellipse cx="100" cy="160" rx="46" ry="36" fill="#D6ECFB"/>
+      <g fill="none" stroke="#8DBFE3" stroke-width="3" stroke-linecap="round">
+        <path d="M82 150 q5 5 10 0"/><path d="M108 150 q5 5 10 0"/><path d="M95 164 q5 5 10 0"/>
+      </g>
+      <ellipse cx="60" cy="130" rx="9" ry="6" fill="#86BFEA" opacity=".7"/>
+      <ellipse cx="140" cy="130" rx="9" ry="6" fill="#86BFEA" opacity=".7"/>
+      <circle cx="76" cy="104" r="17" fill="#fff"/><circle cx="124" cy="104" r="17" fill="#fff"/>
+      <circle cx="77" cy="106" r="11" fill="#2B2F2D"/><circle cx="123" cy="106" r="11" fill="#2B2F2D"/>
+      <circle cx="81" cy="101" r="4" fill="#fff"/><circle cx="127" cy="101" r="4" fill="#fff"/>
+      <path d="M87 122 Q100 115 113 122 Q109 136 100 136 Q91 136 87 122Z" fill="#E2B23A"/>
+    </symbol>
+    <symbol id="pip-girl" viewBox="0 0 200 220">
+      <ellipse cx="100" cy="207" rx="56" ry="8" fill="#2F6B4D" opacity=".16"/>
+      <path d="M44 132 C30 128 12 138 6 152 C22 160 40 152 48 142Z" fill="#EE8DB4"/>
+      <path d="M156 132 C170 128 188 138 194 152 C178 160 160 152 152 142Z" fill="#EE8DB4"/>
+      <rect x="70" y="190" width="26" height="15" rx="7" fill="#D9B13A"/>
+      <rect x="104" y="190" width="26" height="15" rx="7" fill="#D9B13A"/>
+      <path d="M97 46 C90 32 94 18 102 14 C108 22 107 36 103 46Z" fill="#F7A9C8"/>
+      <path d="M100 40 C150 40 168 106 167 148 C166 188 138 199 100 199 C62 199 34 188 33 148 C32 106 50 40 100 40Z" fill="#F9B4CF"/>
+      <ellipse cx="100" cy="160" rx="46" ry="36" fill="#FDE3EE"/>
+      <g fill="none" stroke="#EFA2C2" stroke-width="3" stroke-linecap="round">
+        <path d="M82 152 q5 5 10 0"/><path d="M108 152 q5 5 10 0"/><path d="M95 166 q5 5 10 0"/>
+      </g>
+      <ellipse cx="58" cy="128" rx="10" ry="6" fill="#F38BB4" opacity=".75"/>
+      <ellipse cx="142" cy="128" rx="10" ry="6" fill="#F38BB4" opacity=".75"/>
+      <g fill="none" stroke="#242926" stroke-width="6" stroke-linecap="round">
+        <path d="M62 108 Q76 90 90 108"/><path d="M110 108 Q124 90 138 108"/>
+      </g>
+      <path d="M86 120 Q100 113 114 120 Q110 131 100 131 Q90 131 86 120Z" fill="#E2B23A"/>
+      <path d="M89 133 Q100 128 111 133 Q108 148 100 148 Q92 148 89 133Z" fill="#3B2A12"/>
+      <ellipse cx="100" cy="143" rx="6" ry="3" fill="#F3E4A3"/>
+      <g fill="#E0578E">
+        <path d="M128 54 L112 40 L114 64Z"/><path d="M128 54 L146 42 L142 66Z"/>
+        <path d="M126 56 L118 74 L126 70Z"/><path d="M130 56 L138 74 L132 70Z"/>
+        <circle cx="128" cy="55" r="5" fill="#C9447A"/>
+      </g>
+    </symbol>
+
+</defs></svg>
+
+<header class="scene">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="soon">Coming soon</span>
+      <h1>Help your child swap screen time for real adventures</h1>
+      <p class="lede">Your child picks a bird, names it, and helps it grow by doing real things: building a nest from sticks, spotting a real bird, helping make dinner.</p>
+
+      <form class="join" id="join" novalidate>
+        <label for="email" class="visually-hidden" style="position:absolute;left:-9999px">Your email</label>
+        <input type="email" id="email" autocomplete="email" maxlength="254" placeholder="Your email" aria-describedby="join-err join-get">
+        <button type="submit" id="join-go">Get early access</button>
+      </form>
+      <div class="err" id="join-err" aria-live="polite"></div>
+      <p class="get" id="join-get">Be first to try Fledgy, and get a free printable adventure pack today. We'll only email you about Fledgy, and you can unsubscribe any time.</p>
+
+      <div class="joined" id="joined" tabindex="-1" aria-live="polite">
+        <h2>You're in!</h2>
+        <p>Here's your free adventure pack: 6 cards and Pip's passport to print at home.</p>
+        <div class="row">
+          <a class="btn sun" href="fledgy-adventure-pack.pdf" download>Download the pack</a>
+          <a class="btn wa" id="wa" href="#" target="_blank" rel="noopener">Share on WhatsApp</a>
+        </div>
+        <p class="fine">One more favour? <a href="#survey">Answer 6 quick questions</a> so we build what your family needs.</p>
+      </div>
+    </div>
+    <div class="birds" aria-hidden="true">
+      <svg viewBox="0 0 200 220"><use href="#pip-boy"/></svg>
+      <svg viewBox="0 0 200 220"><use href="#pip-girl"/></svg>
+    </div>
+  </div>
+  <svg class="hills" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 80 Q360 10 720 70 T1440 50 V140 H0Z" fill="#CDE9DB"/>
+    <path d="M0 110 Q400 50 820 100 T1440 90 V140 H0Z" fill="#A9D9C1"/>
+  </svg>
+</header>
+
+<main>
+  <section class="wrap" aria-labelledby="how">
+    <h2 id="how">How Fledgy works</h2>
+    <ol class="steps">
+      <li><h3>Choose and name a bird</h3><p>Your child picks the blue bird or the pink bird and gives it a name. Most call it Pip.</p></li>
+      <li><h3>Go on an adventure</h3><p>Each day there's an adventure to do away from the screen. A parent ticks it off.</p></li>
+      <li><h3>Watch Pip grow</h3><p>Pip hatches, grows and travels to new places. A quick look in the app, then back to playing.</p></li>
+    </ol>
+  </section>
+
+  <section class="wrap" aria-labelledby="cards">
+    <h2 id="cards">A few adventure cards</h2>
+    <p>Adventures mix making, exploring, helping, moving and calm time.</p>
+    <div class="cards">
+      <article class="card make"><div class="kind">Make</div><h3>Build Pip a nest</h3><p>Use sticks, leaves and grass from outside. How cosy can you make it?</p></article>
+      <article class="card explore"><div class="kind">Explore</div><h3>Spot a real bird</h3><p>Find a bird in the garden or park. What colour is it? Draw it for Pip.</p></article>
+      <article class="card help"><div class="kind">Help</div><h3>Pip's chef helper</h3><p>Help make dinner tonight. Wash, stir or set the table.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="passport">
+    <div class="passport">
+      <div>
+        <h2 id="passport">A stamp for every adventure</h2>
+        <p>Every adventure earns a stamp in Pip's paper passport, so your child can see how far they've come.</p>
+        <p>Pip is the prize, not extra screen time.</p>
+      </div>
+      <div class="stamps" role="img" aria-label="A passport page with 8 of 18 stamps collected">
+        <div class="stamp done">✓</div><div class="stamp done">✓</div><div class="stamp done">✓</div>
+        <div class="stamp done">✓</div><div class="stamp done">✓</div><div class="stamp done">✓</div>
+        <div class="stamp done">✓</div><div class="stamp done">✓</div><div class="stamp"></div>
+        <div class="stamp"></div><div class="stamp"></div><div class="stamp"></div>
+        <div class="stamp"></div><div class="stamp"></div><div class="stamp"></div>
+        <div class="stamp"></div><div class="stamp"></div><div class="stamp"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="promise">
+    <h2 id="promise">Our promise to families</h2>
+    <ul class="promises">
+      <li><strong>Pip never gets sick or sad</strong> if a day is missed. No guilt, no streaks to lose.</li>
+      <li><strong>Short visits.</strong> A few minutes in the app. The fun happens off the screen.</li>
+      <li><strong>No adverts to children</strong> and nothing to buy inside the app.</li>
+      <li><strong>Parents are in charge</strong> of every setting.</li>
+    </ul>
+  </section>
+
+  <section class="survey" id="survey" aria-labelledby="survey-h">
+    <div class="wrap">
+      <h2 id="survey-h">Help shape Fledgy</h2>
+      <p>Six quick questions, about 2 minutes. Your answers decide what we build first. We never ask for your child's name, photo or school.</p>
+
+      <form class="q" id="f" novalidate>
+        <fieldset>
+          <legend>1. How old are your children?<small>Pick all that apply</small></legend>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="child_ages" value="under5"><span>Under 5</span></label>
+            <label class="opt"><input type="checkbox" name="child_ages" value="5to8"><span>5 to 8</span></label>
+            <label class="opt"><input type="checkbox" name="child_ages" value="9to11"><span>9 to 11</span></label>
+            <label class="opt"><input type="checkbox" name="child_ages" value="12plus"><span>12 or older</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>2. How often does screen time cause arguments at home?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="arguments" value="daily"><span>Daily</span></label>
+            <label class="opt"><input type="radio" name="arguments" value="weekly"><span>A few times a week</span></label>
+            <label class="opt"><input type="radio" name="arguments" value="rarely"><span>Rarely</span></label>
+            <label class="opt"><input type="radio" name="arguments" value="never"><span>Never</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>3. What have you tried so far?<small>Pick all that apply</small></legend>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="tried" value="limits"><span>Phone time limits</span></label>
+            <label class="opt"><input type="checkbox" name="tried" value="taking_away"><span>Taking devices away</span></label>
+            <label class="opt"><input type="checkbox" name="tried" value="charts"><span>Reward charts</span></label>
+            <label class="opt"><input type="checkbox" name="tried" value="apps"><span>Other apps</span></label>
+            <label class="opt"><input type="checkbox" name="tried" value="nothing"><span>Nothing yet</span></label>
+            <label class="opt"><input type="checkbox" name="tried" value="other"><span>Something else</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>4. Which part would your child love most?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="favourite" value="pip"><span>Growing Pip</span></label>
+            <label class="opt"><input type="radio" name="favourite" value="cards"><span>Adventure cards</span></label>
+            <label class="opt"><input type="radio" name="favourite" value="passport"><span>Stamp passport</span></label>
+            <label class="opt"><input type="radio" name="favourite" value="none"><span>None of these</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>5. Would you pay for Fledgy?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="would_pay" value="monthly"><span>Yes, monthly</span></label>
+            <label class="opt"><input type="radio" name="would_pay" value="once"><span>Yes, once-off</span></label>
+            <label class="opt"><input type="radio" name="would_pay" value="free_only"><span>Only if it's free</span></label>
+            <label class="opt"><input type="radio" name="would_pay" value="no"><span>No</span></label>
+          </div>
+        </fieldset>
+        <div style="margin-bottom:26px">
+          <label class="field" for="blockers">6. What would stop you using it?</label>
+          <textarea id="blockers" name="blockers" maxlength="1000" placeholder="Anything at all, it really helps"></textarea>
+        </div>
+        <button type="submit" id="go">Send my answers</button>
+        <div class="err" id="form-err" aria-live="polite"></div>
+        <p class="fine">Answers are anonymous unless you joined with your email above. We never share or sell your details.</p>
+      </form>
+
+      <div class="thanks" id="thanks" tabindex="-1" aria-live="polite">
+        <h2>Thank you!</h2>
+        <p id="thanks-msg">Your answers are in, and they really help.</p>
+        <div id="thanks-join">
+          <p>Want the free adventure pack and early access? Add your email at the <a href="#top">top of the page</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Fledgy is being made in South Africa and isn't available yet.
+</footer>
+
+<script>
+(() => {
+  const API = "https://kwxjcnrczmbdosqjdckc.supabase.co/rest/v1/interest_signups";
+  const KEY = "sb_publishable_lpqr0h91gUX4lGtVxKwsJA_OVX-IjDx";
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const uuid = () => (crypto.randomUUID ? crypto.randomUUID() :
+    "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
+  let ref = store.get("fledgy_ref"); if (!ref) { ref = uuid(); store.set("fledgy_ref", ref); }
+  const from = (new URLSearchParams(location.search).get("from") || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 60) || null;
+  const send = row => fetch(API, { method: "POST", headers: { apikey: KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+    body: JSON.stringify(Object.assign({ visitor_ref: ref, heard_from: from }, row)) }).then(r => { if (!r.ok) throw new Error(r.status); });
+
+  // Share link: tagged so we can see how many people come from shares.
+  const shareUrl = location.origin + location.pathname + "?from=share";
+  document.getElementById("wa").href = "https://wa.me/?text=" + encodeURIComponent("I just joined the early list for Fledgy. Kids grow a little bird called Pip by doing real adventures away from screens, and there's a free printable adventure pack: " + shareUrl);
+
+  // Waitlist
+  const join = document.getElementById("join"), email = document.getElementById("email");
+  const joinErr = document.getElementById("join-err"), joinGo = document.getElementById("join-go");
+  const ok = v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+  let joined = store.get("fledgy_joined") === "1";
+  const showJoined = focus => {
+    join.style.display = "none"; document.getElementById("join-get").style.display = "none"; joinErr.textContent = "";
+    const j = document.getElementById("joined"); j.classList.add("show"); if (focus) j.focus();
+    document.getElementById("thanks-join").style.display = "none";
+  };
+  if (joined) showJoined(false);
+  email.addEventListener("blur", () => { const v = email.value.trim(); joinErr.textContent = v && !ok(v) ? "That email doesn't look quite right. Check it and try again." : ""; });
+  email.addEventListener("input", () => { if (joinErr.textContent && ok(email.value.trim())) joinErr.textContent = ""; });
+  join.addEventListener("submit", async e => {
+    e.preventDefault();
+    const v = email.value.trim();
+    if (!ok(v)) { joinErr.textContent = v ? "That email doesn't look quite right. Check it and try again." : "Add your email to get early access."; email.focus(); return; }
+    joinGo.disabled = true; joinGo.textContent = "Joining…";
+    try {
+      await send({ kind: "waitlist", email: v, email_consent: true, wants_pack: true });
+      joined = true; store.set("fledgy_joined", "1"); showJoined(true);
+    } catch (err) {
+      joinErr.textContent = "That didn't go through. Check your internet connection and try again.";
+    } finally { joinGo.disabled = false; joinGo.textContent = "Get early access"; }
+  });
+
+  // Survey
+  const f = document.getElementById("f"), formErr = document.getElementById("form-err"), go = document.getElementById("go");
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); formErr.textContent = "";
+    const all = n => [...f.querySelectorAll(`input[name="${n}"]:checked`)].map(i => i.value);
+    const one = n => (f.querySelector(`input[name="${n}"]:checked`) || {}).value || null;
+    const row = { kind: "survey", child_ages: all("child_ages"), arguments: one("arguments"), tried: all("tried"),
+      favourite: one("favourite"), would_pay: one("would_pay"), blockers: f.blockers.value.trim() || null };
+    if (!row.child_ages.length && !row.arguments && !row.tried.length && !row.favourite && !row.would_pay && !row.blockers) {
+      formErr.textContent = "Answer at least one question first, then send."; return;
+    }
+    go.disabled = true; go.textContent = "Sending…";
+    try {
+      await send(row);
+      f.style.display = "none";
+      const t = document.getElementById("thanks"); t.classList.add("show"); t.focus();
+    } catch (err) {
+      formErr.textContent = "Your answers didn't send. Check your internet connection and try again.";
+      go.disabled = false; go.textContent = "Send my answers";
+    }
+  });
+})();
+</script>
+</body>
+</html>
